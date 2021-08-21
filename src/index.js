@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
+import {Route, Link} from 'react-router-dom'
+import Home from './components/Home'
+import Counter from './components/Counter'
+import { ConnectedRouter } from "./connected-react-router";
+import history from "./history";
+import { Provider } from "react-redux";
+import store from "./store";
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+    <div>
+      <ul>
+        <li><Link to="/" exact={true}>首页</Link></li>
+        <li><Link to="/counter" exact={true}>计数器</Link></li>
+      </ul>
+      <Route path="/" exact={true} component={Home} ></Route>
+      <Route path="/counter"  component={Counter} ></Route>
+    </div>
+  </ConnectedRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
